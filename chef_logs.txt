@@ -1,0 +1,920 @@
+login as: sujith
+sujith@192.168.56.101's password:
+Welcome to Ubuntu 19.04 (GNU/Linux 5.0.0-31-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+138 updates can be installed immediately.
+0 of these updates are security updates.
+
+Last login: Wed Oct 16 13:23:48 2019 from 10.0.2.8
+sujith@chef-workstation:~$ cd .chef
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 20K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 16 12:39 credentials
+sujith@chef-workstation:~/.chef$ cp -rp client.rb  client.rb_bkp
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 24K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 sujith sujith  147 Oct 16 12:38 client.rb_bkp
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 16 12:39 credentials
+sujith@chef-workstation:~/.chef$ pwd
+/home/sujith/.chef
+sujith@chef-workstation:~/.chef$ knife configure /home/sujith/.chef/
+Please enter the chef server URL: [https://chef-workstation/organizations/myorg] https://chef-server/organizations/facebook
+Please enter an existing username or clientname for the API: [sujith] akhil
+Overwrite /home/sujith/.chef/credentials? (Y/N) y
+*****
+
+You must place your client key in:
+  /home/sujith/.chef/akhil.pem
+Before running commands with Knife
+
+*****
+Knife configuration file written to /home/sujith/.chef/credentials
+sujith@chef-workstation:~/.chef$ cat credentials
+[default]
+client_name     = 'akhil'
+client_key      = '/home/sujith/.chef/akhil.pem'
+chef_server_url = 'https://chef-server/organizations/facebook'
+sujith@chef-workstation:~/.chef$ cat credentials_bkp
+[default]
+client_name     = 'akhil'
+client_key      = '/home/sujith/.chef/akhil.pem'
+chef_server_url = 'https://chef-server/organizations/facebook'
+config_file     = '/home/sujith/.chef/config.rb'
+cookbook_path   = '/home/sujith/chef-repo/cookbooks'
+validation_key  = '/home/sujith/.chef/facebook.pem'
+sujith@chef-workstation:~/.chef$ mv credentials_bkp credentials
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 24K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 sujith sujith  147 Oct 16 12:38 client.rb_bkp
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 17 09:00 credentials
+sujith@chef-workstation:~/.chef$ cat credentials
+[default]
+client_name     = 'akhil'
+client_key      = '/home/sujith/.chef/akhil.pem'
+chef_server_url = 'https://chef-server/organizations/facebook'
+config_file     = '/home/sujith/.chef/config.rb'
+cookbook_path   = '/home/sujith/chef-repo/cookbooks'
+validation_key  = '/home/sujith/.chef/facebook.pem'
+sujith@chef-workstation:~/.chef$ knils -lrth
+knils: command not found
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 24K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 sujith sujith  147 Oct 16 12:38 client.rb_bkp
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 17 09:00 credentials
+sujith@chef-workstation:~/.chef$ date
+Thu Oct 17 09:03:20 IST 2019
+sujith@chef-workstation:~/.chef$ knife chef-workstation -N node2 -U sujith -P Akhil@123 --sudo
+FATAL: Cannot find subcommand for: 'chef-workstation -N node2 -U sujith -P Akhil@123 --sudo'
+Available subcommands: (for details, knife SUB-COMMAND --help)
+
+** OPSCODE HOSTED CHEF ACCESS CONTROL COMMANDS **
+knife acl add MEMBER_TYPE MEMBER_NAME OBJECT_TYPE OBJECT_NAME PERMS
+knife acl bulk add MEMBER_TYPE MEMBER_NAME OBJECT_TYPE REGEX PERMS
+knife acl bulk remove MEMBER_TYPE MEMBER_NAME OBJECT_TYPE REGEX PERMS
+knife acl remove MEMBER_TYPE MEMBER_NAME OBJECT_TYPE OBJECT_NAME PERMS
+knife acl show OBJECT_TYPE OBJECT_NAME
+knife group add MEMBER_TYPE MEMBER_NAME GROUP_NAME
+knife group create GROUP_NAME
+knife group destroy GROUP_NAME
+knife group list
+knife group remove MEMBER_TYPE MEMBER_NAME GROUP_NAME
+knife group show GROUP_NAME
+knife user dissociate USERNAMES
+knife user invite add USERNAMES
+knife user invite list
+knife user invite recind [USERNAMES] (options)
+
+** OPSCODE PRIVATE CHEF ORGANIZATION MANAGEMENT COMMANDS **
+knife opc org create ORG_SHORT_NAME ORG_FULL_NAME (options)
+knife opc org delete ORG_NAME
+knife opc org edit ORG
+knife opc org list
+knife opc org show ORGNAME
+knife opc org user add ORG_NAME USER_NAME
+knife opc org user remove ORG_NAME USER_NAME
+knife opc user create USERNAME FIRST_NAME [MIDDLE_NAME] LAST_NAME EMAIL PASSWORD
+knife opc user delete USERNAME [-d] [-R]
+knife opc user edit USERNAME
+knife opc user list
+knife opc user password USERNAME [PASSWORD | --enable-external-auth]
+knife opc user show USERNAME
+
+** BASE COMMANDS **
+Usage: /usr/bin/knife (options)
+
+** BOOTSTRAP COMMANDS **
+knife bootstrap [SSH_USER@]FQDN (options)
+knife bootstrap windows ssh FQDN (options)
+knife bootstrap windows winrm FQDN (options)
+
+** CLIENT COMMANDS **
+knife client bulk delete REGEX (options)
+knife client create CLIENTNAME (options)
+knife client delete [CLIENT [CLIENT]] (options)
+knife client edit CLIENT (options)
+knife client key create CLIENT (options)
+knife client key delete CLIENT KEYNAME (options)
+knife client key edit CLIENT KEYNAME (options)
+knife client key list CLIENT (options)
+knife client key show CLIENT KEYNAME (options)
+knife client list (options)
+knife client reregister CLIENT (options)
+knife client show CLIENT (options)
+
+** COMMAND COMMANDS **
+Usage: /usr/bin/knife (options)
+
+** CONFIG COMMANDS **
+knife config get [OPTION...] (options)
+Displays the value of Chef::Config[OPTION] (or all config values)
+
+** CONFIGURE COMMANDS **
+knife configure (options)
+knife configure client DIRECTORY
+
+** COOKBOOK COMMANDS **
+knife cookbook bulk delete REGEX (options)
+Usage: /usr/bin/knife (options)
+knife cookbook delete COOKBOOK VERSION (options)
+knife cookbook download COOKBOOK [VERSION] (options)
+knife cookbook list (options)
+knife cookbook metadata COOKBOOK (options)
+knife cookbook metadata from FILE (options)
+knife cookbook show COOKBOOK [VERSION] [PART] [FILENAME] (options)
+knife cookbook test [COOKBOOKS...] (options)
+knife cookbook upload [COOKBOOKS...] (options)
+
+** COOKBOOK SITE COMMANDS **
+knife cookbook site download COOKBOOK [VERSION] (options)
+knife cookbook site install COOKBOOK [VERSION] (options)
+knife cookbook site list (options)
+knife cookbook site search QUERY (options)
+knife cookbook site share COOKBOOK [CATEGORY] (options)
+knife cookbook site show COOKBOOK [VERSION] (options)
+knife cookbook site unshare COOKBOOK
+
+** DATA BAG COMMANDS **
+knife data bag create BAG [ITEM] (options)
+knife data bag delete BAG [ITEM] (options)
+knife data bag edit BAG ITEM (options)
+knife data bag from file BAG FILE|FOLDER [FILE|FOLDER..] (options)
+knife data bag list (options)
+knife data bag show BAG [ITEM] (options)
+
+** EC2 COMMANDS **
+knife ec2 ami list (options)
+knife ec2 amis ubuntu DISTRO [TYPE] (options)
+knife ec2 flavor list (options)
+knife ec2 server create (options)
+knife ec2 server delete SERVER [SERVER] (options)
+knife ec2 server list (options)
+
+** ENVIRONMENT COMMANDS **
+knife environment compare [ENVIRONMENT..] (options)
+knife environment create ENVIRONMENT (options)
+knife environment delete ENVIRONMENT (options)
+knife environment edit ENVIRONMENT (options)
+knife environment from file FILE [FILE..] (options)
+knife environment list (options)
+knife environment show ENVIRONMENT (options)
+
+** EXEC COMMANDS **
+knife exec [SCRIPT] (options)
+
+** GOOGLE COMMANDS **
+knife google disk create NAME --gce-disk-size N (options)
+knife google disk delete NAME [NAME] (options)
+knife google disk list
+knife google project quotas
+knife google region list
+knife google region quotas
+knife google server create NAME -m MACHINE_TYPE -I IMAGE (options)
+knife google server delete INSTANCE_NAME [INSTANCE_NAME] (options)
+knife google server list
+knife google server show INSTANCE_NAME (options)
+knife google zone list
+
+** JOB COMMANDS **
+knife job list
+knife job output <job id> <node> [<node> ...]
+knife job start <command> [<node> <node> ...]
+knife job status <job id>
+
+** KNIFE COMMANDS **
+Usage: /usr/bin/knife (options)
+
+** NODE COMMANDS **
+knife node bulk delete REGEX (options)
+knife node create NODE (options)
+knife node delete [NODE [NODE]] (options)
+knife node edit NODE (options)
+knife node environment set NODE ENVIRONMENT
+knife node from file FILE (options)
+knife node list (options)
+knife node policy set NODE POLICY_GROUP POLICY_NAME (options)
+knife node run_list add [NODE] [ENTRY [ENTRY]] (options)
+knife node run_list remove [NODE] [ENTRY [ENTRY]] (options)
+knife node run_list set NODE ENTRIES (options)
+knife node show NODE (options)
+knife node status [<node> <node> ...]
+
+** NULL COMMANDS **
+knife null
+
+** OSC COMMANDS **
+knife osc_user create USER (options)
+knife osc_user delete USER (options)
+knife osc_user edit USER (options)
+knife osc_user list (options)
+knife osc_user reregister USER (options)
+knife osc_user show USER (options)
+
+** PATH-BASED COMMANDS **
+knife delete [PATTERN1 ... PATTERNn]
+knife deps PATTERN1 [PATTERNn]
+knife diff PATTERNS
+knife download PATTERNS
+knife edit [PATTERN1 ... PATTERNn]
+knife list [-dfR1p] [PATTERN1 ... PATTERNn]
+knife show [PATTERN1 ... PATTERNn]
+knife upload PATTERNS
+knife xargs [COMMAND]
+
+** RAW COMMANDS **
+knife raw REQUEST_PATH
+
+** RECIPE COMMANDS **
+knife recipe list [PATTERN]
+
+** REHASH COMMANDS **
+knife rehash
+
+** RESOURCE COMMANDS **
+Usage: /usr/bin/knife (options)
+
+** ROLE COMMANDS **
+knife role bulk delete REGEX (options)
+knife role create ROLE (options)
+knife role delete ROLE (options)
+knife role edit ROLE (options)
+knife role env_run_list add [ROLE] [ENVIRONMENT] [ENTRY [ENTRY]] (options)
+knife role env_run_list clear [ROLE] [ENVIRONMENT]
+knife role env_run_list remove [ROLE] [ENVIRONMENT] [ENTRIES]
+knife role env_run_list replace [ROLE] [ENVIRONMENT] [OLD_ENTRY] [NEW_ENTRY]
+knife role env_run_list set [ROLE] [ENVIRONMENT] [ENTRIES]
+knife role from file FILE [FILE..] (options)
+knife role list (options)
+knife role run_list add [ROLE] [ENTRY [ENTRY]] (options)
+knife role run_list clear [ROLE]
+knife role run_list remove [ROLE] [ENTRY]
+knife role run_list replace [ROLE] [OLD_ENTRY] [NEW_ENTRY]
+knife role run_list set [ROLE] [ENTRIES]
+knife role show ROLE (options)
+
+** SEARCH COMMANDS **
+knife search INDEX QUERY (options)
+
+** SERVE COMMANDS **
+knife serve (options)
+
+** SERVER COMMANDS **
+Usage: /usr/bin/knife (options)
+Usage: /usr/bin/knife (options)
+Usage: /usr/bin/knife (options)
+Usage: /usr/bin/knife (options)
+
+** SPORK COMMANDS **
+knife spork bump COOKBOOK [major|minor|patch|manual]
+knife spork check COOKBOOK (options)
+knife spork data bag create BAG [ITEM] (options)
+knife spork data bag delete BAG [ITEM] (options)
+knife spork data bag edit BAG ITEM (options)
+knife spork data bag from file BAG FILE|FOLDER [FILE|FOLDER..] (options)
+knife spork delete [COOKBOOKS...] (options)
+knife spork environment check ENVIRONMENT (options)
+knife spork environment create ENVIRONMENT (options)
+knife spork environment delete ENVIRONMENT (options)
+knife spork environment edit ENVIRONMENT (options)
+knife spork environment from file FILENAME (options)
+knife spork info
+knife spork node create NODE (options)
+knife spork node delete NODE (options)
+knife spork node edit NODE (options)
+knife spork node from file FILE (options)
+knife spork node run_list add [NODE] [ENTRY[,ENTRY]] (options)
+knife spork node run_list add [NODE] [ENTRY[,ENTRY]] (options)
+knife spork node run_list set NODE ENTRIES (options)
+knife spork omni COOKBOOK (options)
+knife spork promote ENVIRONMENT COOKBOOK (options)
+knife spork role create ROLE (options)
+knife spork role delete ROLENAME (options)
+knife spork role edit ROLENAME (options)
+knife spork role from file FILENAME (options)
+knife spork upload [COOKBOOKS...] (options)
+knife spork version
+
+** SSH COMMANDS **
+knife ssh QUERY COMMAND (options)
+
+** SSL COMMANDS **
+knife ssl check [URL] (options)
+knife ssl fetch [URL] (options)
+
+** STATUS COMMANDS **
+knife status QUERY (options)
+
+** SUPERMARKET COMMANDS **
+knife supermarket download COOKBOOK [VERSION] (options)
+knife supermarket install COOKBOOK [VERSION] (options)
+knife supermarket list (options)
+knife supermarket search QUERY (options)
+knife supermarket share COOKBOOK [CATEGORY] (options)
+knife supermarket show COOKBOOK [VERSION] (options)
+knife supermarket unshare COOKBOOK (options)
+
+** TAG COMMANDS **
+knife tag create NODE TAG ...
+knife tag delete NODE TAG ...
+knife tag list NODE
+
+** TIDY COMMANDS **
+knife tidy backup clean (options)
+knife tidy notify (options)
+knife tidy server clean (options)
+knife tidy server report (options)
+
+** USER COMMANDS **
+knife user create USERNAME DISPLAY_NAME FIRST_NAME LAST_NAME EMAIL PASSWORD (options)
+knife user delete USER (options)
+knife user edit USER (options)
+knife user key create USER (options)
+knife user key delete USER KEYNAME (options)
+knife user key edit USER KEYNAME (options)
+knife user key list USER (options)
+knife user key show USER KEYNAME (options)
+knife user list (options)
+knife user reregister USER (options)
+knife user show USER (options)
+
+** VAULT COMMANDS **
+knife vault create VAULT ITEM VALUES (options)
+knife vault delete VAULT ITEM (options)
+knife vault download VAULT ITEM PATH (options)
+knife vault edit VAULT ITEM (options)
+knife vault isvault VAULT ITEM (options)
+knife vault itemtype VAULT ITEM (options)
+knife vault list (options)
+knife vault refresh VAULT ITEM
+knife vault remove VAULT ITEM VALUES (options)
+knife vault rotate all keys
+knife vault rotate keys VAULT ITEM (options)
+knife vault show VAULT [ITEM] [VALUES] (options)
+knife vault update VAULT ITEM VALUES (options)
+
+** VSPHERE COMMANDS **
+knife vsphere cluster list
+knife vsphere cpu ratio [CLUSTER] [HOST]
+knife vsphere customization list
+knife vsphere datastore file
+knife vsphere datastore list
+knife vsphere datastore maxfree
+knife vsphere datastorecluster list
+knife vsphere datastorecluster maxfree
+knife vsphere folder list
+knife vsphere hosts list
+knife vsphere pool list
+knife vsphere pool query POOLNAME QUERY.  See "http://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.ComputeResource.html" for allowed QUERY values.
+knife vsphere pool show POOLNAME QUERY.  See "http://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.ComputeResource.html" for allowed QUERY values.
+knife vsphere template list
+knife vsphere vlan create NAME VID
+knife vsphere vlan list
+knife vsphere vm cdrom VMNAME (options)
+knife vsphere vm clone VMNAME (options)
+knife vsphere vm config VMNAME PROPERTY VALUE (PROPERTY VALUE)...
+          See "https://www.vmware.com/support/developer/converter-sdk/conv60_apireference/vim.vm.ConfigSpec.html"
+          for allowed ATTRIBUTE values (any property of type xs:string is supported).
+knife vsphere vm delete VMNAME (options)
+knife vsphere vm disk extend VMNAME SIZE. Extends the disk of vm VMNAME to SIZE kilobytes.
+knife vsphere vm disk list VMNAME
+knife vsphere vm execute VMNAME COMMAND ARGS
+knife vsphere vm find
+knife vsphere vm list
+knife vsphere vm markastemplate VMNAME
+knife vsphere vm migrate (options)
+knife vsphere vm move
+knife vsphere vm net STATE VMNAME
+knife vsphere vm network add VMNAME NETWORKNAME
+knife vsphere vm network delete VMNAME NICNAME
+knife vsphere vm network list VMNAME
+knife vsphere vm network set VMNAME NETWORKNAME
+knife vsphere vm property get VMNAME PROPERTY.  Gets a vApp Property on VMNAME.
+knife vsphere vm property set VMNAME PROPERTY VALUE.  Sets a vApp Property on VMNAME.
+knife vsphere vm show VMNAME QUERY.  See "http://pubs.vmware.com/vi3/sdk/ReferenceGuide/vim.VirtualMachine.html" for allowed QUERY values.
+knife vsphere vm snapshot VMNAME (options)
+knife vsphere vm state VMNAME (options)
+knife vsphere vm toolsconfig PROPERTY VALUE.
+          See "https://www.vmware.com/support/developer/vc-sdk/visdk25pubs/ReferenceGuide/vim.vm.ToolsConfigInfo.html"
+          for available properties and types.
+knife vsphere vm vmdk add VMNAME DISK_GB
+knife vsphere vm vncset VMNAME COMMAND ARGS
+knife vsphere vm wait sysprep VMNAME (options)
+
+** WINDOWS COMMANDS **
+knife windows cert generate FILE_PATH (options)
+knife windows cert install CERT [CERT] (options)
+knife bootstrap windows winrm FQDN (options)
+knife bootstrap windows ssh FQDN (options)
+knife winrm QUERY COMMAND (options)
+knife wsman test QUERY (options)
+knife windows listener create (options)
+
+** WINRM COMMANDS **
+knife winrm QUERY COMMAND (options)
+
+** WSMAN COMMANDS **
+knife wsman test QUERY (options)
+
+sujith@chef-workstation:~/.chef$ knife bootstrap chef-workstation -N node2 -U sujith -P Akhil@123 --sudo
+Error: invalid option: -U
+USAGE: knife bootstrap [SSH_USER@]FQDN (options)
+        --bootstrap-curl-options OPTIONS
+                                     Add options to curl when install chef-client
+        --bootstrap-install-command COMMANDS
+                                     Custom command to install chef-client
+        --bootstrap-no-proxy [NO_PROXY_URL|NO_PROXY_IP]
+                                     Do not proxy locations for the node being bootstrapped; this option is used internally by Opscode
+        --bootstrap-preinstall-command COMMANDS
+                                     Custom commands to run before installing chef-client
+        --bootstrap-proxy PROXY_URL  The proxy server for the node being bootstrapped
+        --bootstrap-proxy-pass PROXY_PASS
+                                     The proxy authentication password for the node being bootstrapped
+        --bootstrap-proxy-user PROXY_USER
+                                     The proxy authentication username for the node being bootstrapped
+    -t TEMPLATE,                     Bootstrap Chef using a built-in or custom template. Set to the full path of an erb template or use one of the built-in templates.
+        --bootstrap-template
+        --bootstrap-url URL          URL to a custom installation script
+        --bootstrap-vault-file VAULT_FILE
+                                     A JSON file with a list of vault(s) and item(s) to be updated
+        --bootstrap-vault-item VAULT_ITEM
+                                     A single vault and item to update as "vault:item"
+        --bootstrap-vault-json VAULT_JSON
+                                     A JSON string with the vault(s) and item(s) to be updated
+        --bootstrap-version VERSION  The version of Chef to install
+        --bootstrap-wget-options OPTIONS
+                                     Add options to wget when installing chef-client
+    -N, --node-name NAME             The Chef node name for your new node
+        --server-url URL             Chef Server URL
+        --chef-zero-host HOST        Host to start chef-zero on
+        --chef-zero-port PORT        Port (or port range) to start chef-zero on.  Port ranges like 1000,1010 or 8889-9999 will try all given ports until one works.
+    -k, --key KEY                    API Client Key
+        --[no-]color                 Use colored output, defaults to enabled
+    -c, --config CONFIG              The configuration file to use
+        --config-option OPTION=VALUE Override a single configuration option
+        --defaults                   Accept default values for all questions
+    -d, --disable-editing            Do not open EDITOR, just accept the data as is
+    -e, --editor EDITOR              Set the editor to use for interactive commands
+        --encrypt                    If 'secret' or 'secret_file' is present in your config, then encrypt data bags using it
+    -E, --environment ENVIRONMENT    Set the Chef environment (except for in searches, where this will be flagrantly ignored)
+        --[no-]fips                  Enable fips mode
+    -j JSON_ATTRIBS,                 A JSON string to be added to the first run of chef-client
+        --json-attributes
+        --json-attribute-file FILE   A JSON file to be used to the first run of chef-client
+    -F, --format FORMAT              Which format to use for output
+    -A, --forward-agent              Enable SSH agent forwarding
+        --hint HINT_NAME[=HINT_FILE] Specify Ohai Hint to be set on the bootstrap target. Use multiple --hint options to specify multiple hints.
+        --[no-]host-key-verify       Verify host key, enabled by default.
+        --identity-file IDENTITY_FILE
+                                     The SSH identity file used for authentication. [DEPRECATED] Use --ssh-identity-file instead.
+        --[no-]listen                Whether a local mode (-z) server binds to a port
+    -z, --local-mode                 Point knife commands at local repository instead of server
+    -u, --user USER                  API Client Username
+        --node-ssl-verify-mode [peer|none]
+                                     Whether or not to verify the SSL cert for all HTTPS requests.
+        --[no-]node-verify-api-cert  Verify the SSL cert for HTTPS requests to the Chef server API.
+        --policy-group POLICY_GROUP  Policy group name to use (--policy-name must also be given)
+        --policy-name POLICY_NAME    Policyfile name to use (--policy-group must also be given)
+        --prerelease                 Install the pre-release chef gems
+        --sudo-preserve-home         Preserve non-root user HOME environment variable with sudo
+        --print-after                Show the data after a destructive operation
+        --profile PROFILE            The credentials profile to select
+    -r, --run-list RUN_LIST          Comma separated list of roles/recipes to apply
+    -s, --secret                     The secret key to use to encrypt data bag item values. Can also be defaulted in your config with the key 'secret'
+        --secret-file SECRET_FILE    A file containing the secret key to use to encrypt data bag item values. Can also be defaulted in your config with the key 'secret_file'
+    -G, --ssh-gateway GATEWAY        The ssh gateway
+        --ssh-gateway-identity SSH_GATEWAY_IDENTITY
+                                     The SSH identity file used for gateway authentication
+    -i IDENTITY_FILE,                The SSH identity file used for authentication
+        --ssh-identity-file
+    -P, --ssh-password PASSWORD      The ssh password
+    -p, --ssh-port PORT              The ssh port
+    -x, --ssh-user USERNAME          The ssh username
+        --tags TAGS                  Comma separated list of tags to apply to the node
+        --sudo                       Execute the bootstrap via sudo
+        --use-sudo-password          Execute the bootstrap via sudo with password
+    -V, --verbose                    More verbose output. Use twice for max verbosity
+    -v, --version                    Show chef version
+    -y, --yes                        Say yes to all prompts for confirmation
+    -h, --help                       Show this message
+sujith@chef-workstation:~/.chef$ knife bootstrap chef-workstation -N node2 -x sujith -P Akhil@123 --sudo
+Doing old-style registration with the validation key at /home/sujith/.chef/facebook.pem...
+Delete your validation key in order to use your user credentials instead
+
+Connecting to chef-workstation
+chef-workstation knife sudo password:
+chef-workstation
+chef-workstation -----> Existing Chef installation detected
+chef-workstation Starting the first Chef Client run...
+chef-workstation Starting Chef Client, version 14.3.37
+chef-workstation
+chef-workstation ================================================================================
+chef-workstation Chef encountered an error attempting to load the node data for "node2"
+chef-workstation ================================================================================
+chef-workstation
+chef-workstation Authentication Error:
+chef-workstation ---------------------
+chef-workstation Failed to authenticate to the chef server (http 401).
+chef-workstation
+chef-workstation Server Response:
+chef-workstation ----------------
+chef-workstation Failed to authenticate as 'node2'. Ensure that your node_name and client key are correct.
+chef-workstation
+chef-workstation Relevant Config Settings:
+chef-workstation -------------------------
+chef-workstation chef_server_url   "https://chef-server/organizations/facebook"
+chef-workstation node_name         "node2"
+chef-workstation client_key        "/etc/chef/client.pem"
+chef-workstation
+chef-workstation If these settings are correct, your client_key may be invalid, or
+chef-workstation you may have a chef user with the same client name as this node.
+chef-workstation
+chef-workstation System Info:
+chef-workstation ------------
+chef-workstation chef_version=14.3.37
+chef-workstation ruby=ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+chef-workstation program_name=/usr/bin/chef-client
+chef-workstation executable=/opt/chef-workstation/bin/chef-client
+chef-workstation
+chef-workstation
+chef-workstation Running handlers:
+chef-workstation [2019-10-17T09:05:39+05:30] ERROR: Running exception handlers
+chef-workstation Running handlers complete
+chef-workstation [2019-10-17T09:05:39+05:30] ERROR: Exception handlers complete
+chef-workstation Chef Client failed. 0 resources updated in 03 seconds
+chef-workstation [2019-10-17T09:05:39+05:30] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
+chef-workstation [2019-10-17T09:05:39+05:30] FATAL: Please provide the contents of the stacktrace.out file if you file a bug report
+chef-workstation [2019-10-17T09:05:39+05:30] FATAL: Net::HTTPServerException: 401 "Unauthorized"
+sujith@chef-workstation:~/.chef$ cat client.rb
+chef_server_url  "https://chef-server/organizations/facebook"
+validation_client_name "facebook-validator"
+log_location   STDOUT
+node_name "node1"
+
+sujith@chef-workstation:~/.chef$ cat credentials
+[default]
+client_name     = 'akhil'
+client_key      = '/home/sujith/.chef/akhil.pem'
+chef_server_url = 'https://chef-server/organizations/facebook'
+config_file     = '/home/sujith/.chef/config.rb'
+cookbook_path   = '/home/sujith/chef-repo/cookbooks'
+validation_key  = '/home/sujith/.chef/facebook.pem'
+sujith@chef-workstation:~/.chef$ knife client list
+facebook-validator
+node1
+sujith@chef-workstation:~/.chef$ knife node list
+node1
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 24K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 sujith sujith  147 Oct 16 12:38 client.rb_bkp
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 17 09:00 credentials
+sujith@chef-workstation:~/.chef$ knife bootstrap chef-workstation -N node2 -x su                                                                                        jith -P Akhil@123 --sudo^C
+sujith@chef-workstation:~/.chef$ ls -lrth
+total 24K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+drwxr-xr-x 2 sujith sujith 4.0K Oct 13 09:56 trusted_certs
+-rw-r--r-- 1 sujith sujith 1.7K Oct 16 12:02 facebook.pem
+-rw-r--r-- 1 sujith sujith  147 Oct 16 12:38 client.rb_bkp
+-rw-r--r-- 1 root   root    147 Oct 16 12:38 client.rb
+-rw-r--r-- 1 sujith sujith  302 Oct 17 09:00 credentials
+sujith@chef-workstation:~/.chef$ view akhil.pem
+sujith@chef-workstation:~/.chef$ sudo cp -rp akhil.pem /etc/chef/
+[sudo] password for sujith:
+sujith@chef-workstation:~/.chef$ knife bootstrap chef-workstation -N node2 -x su                                                                                        jith -P Akhil@123 --sudo
+Doing old-style registration with the validation key at /home/sujith/.chef/faceb                                                                                        ook.pem...
+Delete your validation key in order to use your user credentials instead
+
+Connecting to chef-workstation
+chef-workstation knife sudo password:
+chef-workstation
+chef-workstation -----> Existing Chef installation detected
+chef-workstation Starting the first Chef Client run...
+chef-workstation Starting Chef Client, version 14.3.37
+chef-workstation
+chef-workstation ===============================================================                                                                                        =================
+chef-workstation Chef encountered an error attempting to load the node data for                                                                                         "node2"
+chef-workstation ===============================================================                                                                                        =================
+chef-workstation
+chef-workstation Authentication Error:
+chef-workstation ---------------------
+chef-workstation Failed to authenticate to the chef server (http 401).
+chef-workstation
+chef-workstation Server Response:
+chef-workstation ----------------
+chef-workstation Failed to authenticate as 'node2'. Ensure that your node_name a                                                                                        nd client key are correct.
+chef-workstation
+chef-workstation Relevant Config Settings:
+chef-workstation -------------------------
+chef-workstation chef_server_url   "https://chef-server/organizations/facebook"
+chef-workstation node_name         "node2"
+chef-workstation client_key        "/etc/chef/client.pem"
+chef-workstation
+chef-workstation If these settings are correct, your client_key may be invalid,                                                                                         or
+chef-workstation you may have a chef user with the same client name as this node                                                                                        .
+chef-workstation
+chef-workstation System Info:
+chef-workstation ------------
+chef-workstation chef_version=14.3.37
+chef-workstation ruby=ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+chef-workstation program_name=/usr/bin/chef-client
+chef-workstation executable=/opt/chef-workstation/bin/chef-client
+chef-workstation
+chef-workstation
+chef-workstation Running handlers:
+chef-workstation [2019-10-17T09:24:34+05:30] ERROR: Running exception handlers
+chef-workstation Running handlers complete
+chef-workstation [2019-10-17T09:24:34+05:30] ERROR: Exception handlers complete
+chef-workstation Chef Client failed. 0 resources updated in 03 seconds
+chef-workstation [2019-10-17T09:24:34+05:30] FATAL: Stacktrace dumped to /var/ch                                                                                        ef/cache/chef-stacktrace.out
+chef-workstation [2019-10-17T09:24:34+05:30] FATAL: Please provide the contents                                                                                         of the stacktrace.out file if you file a bug report
+chef-workstation [2019-10-17T09:24:34+05:30] FATAL: Net::HTTPServerException: 40                                                                                        1 "Unauthorized"
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$
+sujith@chef-workstation:~/.chef$ knife bootstrap chef-workstation -N node2 -x sujith -P Akhil@123 --sudo
+Doing old-style registration with the validation key at /home/sujith/.chef/facebook.pem...
+Delete your validation key in order to use your user credentials instead
+
+Connecting to chef-workstation
+chef-workstation knife sudo password:
+chef-workstation
+chef-workstation -----> Existing Chef installation detected
+chef-workstation Starting the first Chef Client run...
+chef-workstation Starting Chef Client, version 14.3.37
+chef-workstation
+chef-workstation ================================================================================
+chef-workstation Chef encountered an error attempting to load the node data for "node2"
+chef-workstation ================================================================================
+chef-workstation
+chef-workstation Authentication Error:
+chef-workstation ---------------------
+chef-workstation Failed to authenticate to the chef server (http 401).
+chef-workstation
+chef-workstation Server Response:
+chef-workstation ----------------
+chef-workstation Failed to authenticate as 'node2'. Ensure that your node_name and client key are correct.
+chef-workstation
+chef-workstation Relevant Config Settings:
+chef-workstation -------------------------
+chef-workstation chef_server_url   "https://chef-server/organizations/facebook"
+chef-workstation node_name         "node2"
+chef-workstation client_key        "/etc/chef/client.pem"
+chef-workstation
+chef-workstation If these settings are correct, your client_key may be invalid, or
+chef-workstation you may have a chef user with the same client name as this node.
+chef-workstation
+chef-workstation System Info:
+chef-workstation ------------
+chef-workstation chef_version=14.3.37
+chef-workstation ruby=ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+chef-workstation program_name=/usr/bin/chef-client
+chef-workstation executable=/opt/chef-workstation/bin/chef-client
+chef-workstation
+chef-workstation
+chef-workstation Running handlers:
+chef-workstation [2019-10-17T09:33:11+05:30] ERROR: Running exception handlers
+chef-workstation Running handlers complete
+chef-workstation [2019-10-17T09:33:11+05:30] ERROR: Exception handlers complete
+chef-workstation Chef Client failed. 0 resources updated in 03 seconds
+chef-workstation [2019-10-17T09:33:11+05:30] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
+chef-workstation [2019-10-17T09:33:11+05:30] FATAL: Please provide the contents of the stacktrace.out file if you file a bug report
+chef-workstation [2019-10-17T09:33:11+05:30] FATAL: Net::HTTPServerException: 401 "Unauthorized"
+sujith@chef-workstation:~/.chef$ knife show node node1
+ERROR: Attempt to use relative path 'node' when current directory is outside the repository path.
+ERROR: Current working directory is '/home/sujith/.chef'.
+sujith@chef-workstation:~/.chef$ knife client shoe node1
+^Csujith@chef-workstation:~/.chef$ knife client show node1
+admin:     false
+chef_type: client
+name:      node1
+validator: false
+sujith@chef-workstation:~/.chef$ cd ..
+sujith@chef-workstation:~$ cd chef-repo/cookbooks/
+sujith@chef-workstation:~/chef-repo/cookbooks$ ls -lrth
+total 12K
+drwxr-xr-x 4 sujith sujith 4.0K Oct 14 09:01 example
+-rw-r--r-- 1 sujith sujith 3.1K Oct 14 09:01 README.md
+drwxr-xr-x 7 sujith sujith 4.0K Oct 14 09:05 lab9
+sujith@chef-workstation:~/chef-repo/cookbooks$ knife upload lab9
+Created lab9
+sujith@chef-workstation:~/chef-repo/cookbooks$ ls -lrth
+total 12K
+drwxr-xr-x 4 sujith sujith 4.0K Oct 14 09:01 example
+-rw-r--r-- 1 sujith sujith 3.1K Oct 14 09:01 README.md
+drwxr-xr-x 7 sujith sujith 4.0K Oct 14 09:05 lab9
+sujith@chef-workstation:~/chef-repo/cookbooks$ knife cookbook list
+lab9   0.1.0
+sujith@chef-workstation:~/chef-repo/cookbooks$ tumux
+
+Command 'tumux' not found, did you mean:
+
+  command 'tmux' from snap tmux (2.3)
+  command 'tmux' from deb tmux (2.8-3)
+
+See 'snap info <snapname>' for additional versions.
+
+sujith@chef-workstation:~/chef-repo/cookbooks$ tmux
+
+Command 'tmux' not found, but can be installed with:
+
+sudo snap install tmux  # version 2.3, or
+sudo apt  install tmux  # version 2.8-3
+
+See 'snap info tmux' for additional versions.
+
+sujith@chef-workstation:~/chef-repo/cookbooks$ cd lab9/
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ ls -lrth
+total 40K
+-rw-r--r-- 1 sujith sujith  743 Oct 14 09:02 metadata.rb
+-rw-r--r-- 1 sujith sujith   52 Oct 14 09:02 README.md
+-rw-r--r-- 1 sujith sujith  146 Oct 14 09:02 CHANGELOG.md
+-rw-r--r-- 1 sujith sujith 1.1K Oct 14 09:02 chefignore
+-rw-r--r-- 1 sujith sujith   77 Oct 14 09:02 Berksfile
+-rw-r--r-- 1 sujith sujith   70 Oct 14 09:02 LICENSE
+drwxr-xr-x 3 sujith sujith 4.0K Oct 14 09:02 test
+drwxr-xr-x 3 sujith sujith 4.0K Oct 14 09:02 spec
+drwxr-xr-x 2 sujith sujith 4.0K Oct 14 09:09 templates
+drwxr-xr-x 2 sujith sujith 4.0K Oct 14 09:14 recipes
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ cd recipes/
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/recipes$ ls -lrth
+total 8.0K
+-rw-r--r-- 1 sujith sujith 95 Oct 14 09:02 default.rb
+-rw-r--r-- 1 sujith sujith 85 Oct 14 09:14 lab9.rb
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/recipes$ view lab9.rb
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/recipes$ cd ../templates/
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/templates$ ls
+lab9_template.erb
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/templates$ view lab9_template.erb
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9/templates$ cd ..
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ cd ..
+sujith@chef-workstation:~/chef-repo/cookbooks$ ls -lrth
+total 12K
+drwxr-xr-x 4 sujith sujith 4.0K Oct 14 09:01 example
+-rw-r--r-- 1 sujith sujith 3.1K Oct 14 09:01 README.md
+drwxr-xr-x 7 sujith sujith 4.0K Oct 14 09:05 lab9
+sujith@chef-workstation:~/chef-repo/cookbooks$ cd lab9/
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ ls -lrth
+total 40K
+-rw-r--r-- 1 sujith sujith  743 Oct 14 09:02 metadata.rb
+-rw-r--r-- 1 sujith sujith   52 Oct 14 09:02 README.md
+-rw-r--r-- 1 sujith sujith  146 Oct 14 09:02 CHANGELOG.md
+-rw-r--r-- 1 sujith sujith 1.1K Oct 14 09:02 chefignore
+-rw-r--r-- 1 sujith sujith   77 Oct 14 09:02 Berksfile
+-rw-r--r-- 1 sujith sujith   70 Oct 14 09:02 LICENSE
+drwxr-xr-x 3 sujith sujith 4.0K Oct 14 09:02 test
+drwxr-xr-x 3 sujith sujith 4.0K Oct 14 09:02 spec
+drwxr-xr-x 2 sujith sujith 4.0K Oct 14 09:09 templates
+drwxr-xr-x 2 sujith sujith 4.0K Oct 14 09:14 recipes
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ knife node run_list set node_name node1 lab9::lab9
+ERROR: The object you are looking for could not be found
+Response: node 'node_name' not found
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ knife node run_list set  node1 lab9::lab9
+node1:
+  run_list: recipe[lab9::lab9]
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ knife ssh name:node1 sudo chef-client -x sujith
+sujith@chef-workstation's password:
+chef-workstation knife sudo password:
+Enter your password:
+chef-workstation
+chef-workstation Starting Chef Client, version 14.3.37
+chef-workstation
+chef-workstation ================================================================================
+chef-workstation Chef encountered an error attempting to load the node data for "node2"
+chef-workstation ================================================================================
+chef-workstation
+chef-workstation Authentication Error:
+chef-workstation ---------------------
+chef-workstation Failed to authenticate to the chef server (http 401).
+chef-workstation
+chef-workstation Server Response:
+chef-workstation ----------------
+chef-workstation Failed to authenticate as 'node2'. Ensure that your node_name and client key are correct.
+chef-workstation
+chef-workstation Relevant Config Settings:
+chef-workstation -------------------------
+chef-workstation chef_server_url   "https://chef-server/organizations/facebook"
+chef-workstation node_name         "node2"
+chef-workstation client_key        "/etc/chef/client.pem"
+chef-workstation
+chef-workstation If these settings are correct, your client_key may be invalid, or
+chef-workstation you may have a chef user with the same client name as this node.
+chef-workstation
+chef-workstation System Info:
+chef-workstation ------------
+chef-workstation chef_version=14.3.37
+chef-workstation ruby=ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+chef-workstation program_name=/usr/bin/chef-client
+chef-workstation executable=/opt/chef-workstation/bin/chef-client
+chef-workstation
+chef-workstation
+chef-workstation Running handlers:
+chef-workstation [2019-10-17T10:17:17+05:30] ERROR: Running exception handlers
+chef-workstation Running handlers complete
+chef-workstation [2019-10-17T10:17:17+05:30] ERROR: Exception handlers complete
+chef-workstation Chef Client failed. 0 resources updated in 18 seconds
+chef-workstation [2019-10-17T10:17:17+05:30] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
+chef-workstation [2019-10-17T10:17:17+05:30] FATAL: Please provide the contents of the stacktrace.out file if you file a bug report
+chef-workstation [2019-10-17T10:17:17+05:30] FATAL: Net::HTTPServerException: 401 "Unauthorized"
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ knife ssh name:node1 sudo chef-client -x sujith^C
+sujith@chef-workstation:~/chef-repo/cookbooks/lab9$ cd /etc/chef/
+sujith@chef-workstation:/etc/chef$ ls -lrth
+total 32K
+-rw-r--r-- 1 sujith sujith 1.7K Oct 13 09:13 akhil.pem
+-rw-r--r-- 1 root   root    106 Oct 16 08:47 client.rb_bkp
+-rw-r--r-- 1 root   root     36 Oct 16 12:34 chef_guid
+drwxr-xr-x 2 root   root   4.0K Oct 16 12:39 trusted_certs
+-rw------- 1 root   root   1.7K Oct 16 12:39 client.pem
+-rw------- 1 root   root   1.7K Oct 17 09:33 validation.pem
+-rw-r--r-- 1 root   root    191 Oct 17 09:33 client.rb
+-rw-r--r-- 1 root   root     16 Oct 17 09:33 first-boot.json
+sujith@chef-workstation:/etc/chef$ cat client.rb
+chef_server_url  "https://chef-server/organizations/facebook"
+validation_client_name "facebook-validator"
+log_location   STDOUT
+node_name "node2"
+trusted_certs_dir "/etc/chef/trusted_certs"
+
+sujith@chef-workstation:/etc/chef$ vi client.rb
+sujith@chef-workstation:/etc/chef$ sudo vi client.rb
+[sudo] password for sujith:
+sujith@chef-workstation:/etc/chef$ knife ssh name:node1 sudo chef-client -x sujith
+sujith@chef-workstation's password:
+chef-workstation knife sudo password:
+Enter your password:
+chef-workstation
+chef-workstation Starting Chef Client, version 14.3.37
+chef-workstation resolving cookbooks for run list: ["lab9::lab9"]
+chef-workstation Synchronizing Cookbooks:
+chef-workstation   - lab9 (0.1.0)
+chef-workstation Installing Cookbook Gems:
+chef-workstation Compiling Cookbooks...
+chef-workstation Converging 1 resources
+chef-workstation Recipe: lab9::lab9
+chef-workstation   * template[/home/sujith/simple.txt] action create
+chef-workstation     - create new file /home/sujith/simple.txt
+chef-workstation     - update content in file /home/sujith/simple.txt from none to 264230
+chef-workstation     --- /home/sujith/simple.txt        2019-10-17 10:19:43.196545477 +0530
+chef-workstation     +++ /home/sujith/.chef-simple20191017-8827-fy10uh.txt      2019-10-17 10:19:43.196545477 +0530
+chef-workstation     @@ -1 +1,5 @@
+chef-workstation     +This file has been created by the chef recipe "lab9::lab9"
+chef-workstation     +This node has the ip address - "192.168.1.9"
+chef-workstation     +This nodes fqdn is
+chef-workstation     +"chef-workstation"
+chef-workstation     - change mode from '' to '0444'
+chef-workstation
+chef-workstation Running handlers:
+chef-workstation Running handlers complete
+chef-workstation Chef Client finished, 1/1 resources updated in 04 seconds
+sujith@chef-workstation:/etc/chef$ cat /home/sujith/simple.txt
+This file has been created by the chef recipe "lab9::lab9"
+This node has the ip address - "192.168.1.9"
+This nodes fqdn is
+"chef-workstation"
+sujith@chef-workstation:/etc/chef$
